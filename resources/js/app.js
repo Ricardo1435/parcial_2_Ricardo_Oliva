@@ -4,6 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+const { default: Axios } = require('axios');
+import $ from 'jquery';
 require('./bootstrap');
 
 window.Vue = require('vue').default;
@@ -27,6 +29,60 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
+new Vue({
+    el: '#crud',
+    created: function(){
+        this.getBooks();
+    },
+    data: {
+        books:[],
+        newIsbn: '',
+        newName: '',
+        newDate: '',
+        newEdition:'',
+        newDescription: '',
+        fillBook: {
+            'id': '',
+            'isbn': '',
+            'name': '',
+            'date': '',
+            'edition': '',
+            'description': ''
+        },
+        errors: []
+    },
+    methods:{
+
+        getBooks: function (){
+            var urlBooks ="books";
+            axios.get(urlBooks).then(response => {
+                this.books = response.data
+            });
+        },
+
+        createBook: function() {
+            var url = 'books';
+            axios.post(url, {
+                isbn: this.newIsbn,
+                name: this.newName,
+                date: this.newDate,
+                edition: this.newEdition,
+                description: this.newDescription
+            }).then(response => {
+                this.getBooks();
+                this.newIsbn = '';
+                this.newName = '';
+                this.newDate = '';
+                this.newEdition = '';
+                this.newDescription = '';
+                this.errors = [];
+                // document.getElementById('close-modal').click();
+                $('#create').modal('hide');
+                // alert('Nueva categoria creada con exito');
+            }).catch(error => {
+                this.errors = error.response.data
+            });
+        }
+    }
+
 });

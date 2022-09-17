@@ -31,18 +31,12 @@
 
                    <td class="text-center">
                        <a href="#" class="btn btn-warning btn-sm" >Editar</a>
-                       <a href="#" class="btn btn-danger btn-sm" >Eliminar</a>
-                   </td>
+                       <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deleteBook(book)">Eliminar</a>                   </td>
                </tr>
                </tbody>
            </table>
            @include('create')
 
        </div>
-{{--       <div class="col-sm-3">--}}
-{{--		<pre>--}}
-{{--			@{{ $data }}--}}
-{{--		</pre>--}}
-{{--       </div>--}}
    </div>
 @endsection

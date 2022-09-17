@@ -82,6 +82,13 @@ new Vue({
             }).catch(error => {
                 this.errors = error.response.data
             });
+        },
+        deleteBook: function(book){
+            var url = "books/" + book.id;
+            axios.delete(url).then(response => {
+                alert("Eliminado");
+                this.getBooks();
+            });
         }
     }
 

@@ -5432,6 +5432,16 @@ new Vue({
       })["catch"](function (error) {
         _this2.errors = error.response.data;
       });
+    },
+    deleteBook: function deleteBook(book) {
+      var _this3 = this;
+
+      var url = "books/" + book.id;
+      axios["delete"](url).then(function (response) {
+        alert("Eliminado");
+
+        _this3.getBooks();
+      });
     }
   }
 });
